@@ -68,7 +68,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
     @IBAction func logOutClicked(_ sender: Any) {
         
         performSegue(withIdentifier: "afterLogout", sender: nil)
-        
+        UserDefaults.standard.removeObject(forKey:"isLogin")
+        UserDefaults.standard.set(false, forKey: "isLogin")
     }
 }
 
