@@ -18,18 +18,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         let window = UIWindow(windowScene: scene as! UIWindowScene)
+        let board = UIStoryboard(name: "Main", bundle: nil)
         // Assign window to SceneDelegate window property
         self.window = window
 
         isLogin = UserDefaults.standard.bool(forKey: "isLogin")
-
+        
         // user logged
         if (isLogin == true) {
-            let board = UIStoryboard(name: "Main", bundle: nil)
             let tabBar = board.instantiateViewController(withIdentifier: "tabBar") as! UITabBarController
             window.rootViewController = tabBar
         } else { // user not logged
-            let board = UIStoryboard(name: "Main", bundle: nil)
             let login = board.instantiateViewController(withIdentifier: "Main")
             window.rootViewController = login
         }

@@ -23,9 +23,6 @@ class SignInViewController: UIViewController {
         // navigation operations are done in vc that will return
         let backBarButtonItem = UIBarButtonItem(title: "Geri", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backBarButtonItem
-        
-        UserDefaults.standard.removeObject(forKey:"isLogin") // reset login value
-        UserDefaults.standard.set(true, forKey: "isLogin") 
     }
     
     @IBAction func signInClicked(_ sender: Any) {
@@ -34,7 +31,7 @@ class SignInViewController: UIViewController {
             // perform segue
             self.performSegue(withIdentifier: "toTabBar", sender: nil)
             UserDefaults.standard.removeObject(forKey:"isLogin")
-            UserDefaults.standard.set(false, forKey: "isLogin")
+            UserDefaults.standard.set(true, forKey: "isLogin")
         } else {
             // show alert message
             makeAlert(titleInput: "Bir hata oluştu!", messageInput: "Lütfen hesap bilgilerinizi tekrar giriniz.")
