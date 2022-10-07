@@ -38,6 +38,35 @@ class AddTransactionViewController: UIViewController, UIImagePickerControllerDel
         let imageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectImage))
         attachLabel.addGestureRecognizer(imageTapRecognizer)
         
+        addButton.isEnabled = false // button not enabled at the start
+        
+        amountTextField.addTarget(self, action: #selector(checkButtonAvailability), for: .editingChanged)
+        categoryTextField.addTarget(self, action: #selector(checkButtonAvailability), for: .editingChanged)
+        
+        // income segment do not have image adding option
+        segmentControl.addTarget(self, action: #selector(switchSegments), for: .valueChanged)
+    }
+    
+    @objc func switchSegments() {
+        switch segmentControl.selectedSegmentIndex {
+            case 0: // expense
+                attachLabel.isEnabled = true
+            case 1: // income
+                attachLabel.isEnabled = false
+                attachLabel.isUserInteractionEnabled = false
+                imageView.isHidden = true
+            default:
+                break
+        }
+    }
+    
+    // user must enter amount and category for transaction info.
+    @objc func checkButtonAvailability(){
+        if amountTextField.text!.isEmpty || categoryTextField.text!.isEmpty {
+            addButton.isEnabled = false
+        } else {
+            addButton.isEnabled = true
+        }
     }
     
     func pickDate() {
@@ -46,7 +75,6 @@ class AddTransactionViewController: UIViewController, UIImagePickerControllerDel
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
         dateTextField.addGestureRecognizer(tapGesture)
-
     }
     
     @objc func updateDate() {

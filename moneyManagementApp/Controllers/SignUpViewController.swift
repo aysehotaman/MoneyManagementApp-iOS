@@ -32,6 +32,21 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
         userImage.addGestureRecognizer(imageTapRecognizer)
         
         createDatePicker()
+        
+        signUpButton.isEnabled = false
+        
+        usernameTextField.addTarget(self, action: #selector(checkButtonEnable), for: .editingChanged)
+        idTextField.addTarget(self, action: #selector(checkButtonEnable), for: .editingChanged)
+        birthdayTextField.addTarget(self, action: #selector(checkButtonEnable), for: .editingChanged)
+    }
+    
+    // user must enter username, id and birth date for user info.
+    @objc func checkButtonEnable() {
+        if usernameTextField.text!.isEmpty || idTextField.text!.isEmpty || birthdayTextField.text!.isEmpty {
+            signUpButton.isEnabled = false
+        } else {
+            signUpButton.isEnabled = true
+        }
     }
     
     //selecting image
@@ -100,7 +115,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
         newUser.setValue(email, forKey: "email")
         newUser.setValue(password, forKey: "password")
         newUser.setValue(uuid, forKey: "userid")
-        // to save user foto.
+        // to save user photo.
         let image = userImage.image!.jpegData(compressionQuality: 0.5)
         newUser.setValue(image, forKey: "userimage")
         
