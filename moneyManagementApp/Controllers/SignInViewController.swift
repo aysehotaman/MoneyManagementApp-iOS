@@ -32,21 +32,10 @@ class SignInViewController: UIViewController {
             self.performSegue(withIdentifier: "toTabBar", sender: nil)
             UserDefaults.standard.removeObject(forKey:"isLogin")
             UserDefaults.standard.set(true, forKey: "isLogin")
+            UserDefaults.standard.set(unid, forKey: "id") // set user id to default db
         } else {
             // show alert message
             makeAlert(titleInput: "Bir hata oluştu!", messageInput: "Lütfen hesap bilgilerinizi tekrar giriniz.")
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // go to tab bar
-        if segue.identifier == "toTabBar" {
-            let tabBarVC = segue.destination as! UITabBarController
-  
-            let profileVC = tabBarVC.viewControllers![ProfileIndexViewController] as! ProfileViewController
-            
-            profileVC.pid = unid
-            //tabBarVC.selectedIndex = 1 // if this uncomment it goes to the add trans. vc. at boot
         }
     }
     
@@ -61,9 +50,9 @@ class SignInViewController: UIViewController {
         let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
-        fetchRequest.returnsObjectsAsFaults = false //daha hızlı oluyor
+        fetchRequest.returnsObjectsAsFaults = false
         
-        // check compactility of password and email
+        // check compatibility of password and email
         let predicate = NSPredicate(format: "email == %@ AND password == %@", self.emailTextField.text!, self.passwordTextField.text!)
         fetchRequest.predicate = predicate
         

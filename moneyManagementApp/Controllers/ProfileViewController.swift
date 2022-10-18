@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print(pid)
+        pid = UserDefaults.standard.string(forKey: "id")!
         
         // customize our profile image
         profileImage.roundedImage(borderColor: UIColor.black.cgColor, cornerRadius: 60)
@@ -37,7 +37,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
         let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
-        fetchRequest.returnsObjectsAsFaults = false //daha hızlı oluyor
+        fetchRequest.returnsObjectsAsFaults = false
         
         // fetch info. according to userid
         let predicate = NSPredicate(format: "userid = %@", pid)

@@ -51,6 +51,7 @@ class AddTransactionViewController: UIViewController, UIImagePickerControllerDel
         switch segmentControl.selectedSegmentIndex {
             case 0: // expense
                 attachLabel.isEnabled = true
+                attachLabel.isUserInteractionEnabled = true
             case 1: // income
                 attachLabel.isEnabled = false
                 attachLabel.isUserInteractionEnabled = false
